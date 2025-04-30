@@ -226,6 +226,10 @@ class VideoViewSet(viewsets.ModelViewSet):
             user_videos = user_videos.exclude(
                 pk__in=[vid.id for vid in user_videos if not vid.encoded]
             )
+        if request.GET.get("encoded") and request.GET.get("encoded") == "false":
+            user_videos = user_videos.filter(
+                pk__in=[vid.id for vid in user_videos if not vid.encoded]
+            )            
         if request.GET.get("search_title") and request.GET.get("search_title") != "":
             user_videos = user_videos.filter(
                 title__icontains=request.GET.get("search_title")
