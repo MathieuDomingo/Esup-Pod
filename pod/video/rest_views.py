@@ -204,15 +204,18 @@ class DisciplineViewSet(viewsets.ModelViewSet):
 class VideoViewSet(viewsets.ModelViewSet):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
-    filterset_fields = [
-        "owner",
-        "type",
-        "date_added",
-        "is_draft",
-        "is_restricted",
-        "encoding_in_progress",
-        "sites",
-    ]
+    filterset_fields = {
+        "owner": ["exact"],
+        "type": ["exact"],
+        "date_added": [
+            "exact", "lt", "lte", "gt", "gte",
+            "year__exact", "year__lt", "year__lte", "year__gt", "year__gte",
+        ],
+        "is_draft": ["exact"],
+        "is_restricted": ["exact"],
+        "encoding_in_progress": ["exact"],
+        "sites": ["exact"],
+    }
 
     @action(detail=False, methods=["get"])
     def user_videos(self, request):
