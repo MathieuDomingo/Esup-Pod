@@ -147,6 +147,7 @@ class VideoUserSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "url",
+            "slug",
             "get_version",
             "type",
             "date_added",
